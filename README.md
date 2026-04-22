@@ -5,7 +5,7 @@ A developer tool that analyzes UI components and returns structured, actionable 
 Works with Claude, OpenAI, Groq, and Gemini. All free tiers supported. No backend, no account, no cost to run.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Multi-provider](https://img.shields.io/badge/providers-Claude%20%7C%20OpenAI%20%7C%20Groq%20%7C%20Gemini-yellow.svg)]()
+[![Multi-provider](https://img.shields.io/badge/providers-Claude%20%7C%20OpenAI%20%7C%20Grok%20%7C%20Gemini-yellow.svg)]()
 [![No backend](https://img.shields.io/badge/backend-none-green.svg)]()
 
 ---
@@ -36,7 +36,7 @@ Paste any HTML component. Choose your AI provider. Get back:
 |---|---|---|
 | Claude | Yes | console.anthropic.com |
 | OpenAI | Yes | platform.openai.com |
-| Groq | Yes (generous) | console.groq.com |
+| Grok | Yes (generous) | [x.ai](https://x.ai/api) |
 | Gemini | Yes (generous) | aistudio.google.com |
 
 Your API key is held in browser memory only. It is never stored, never logged, never sent anywhere except directly to the provider you choose.
@@ -64,7 +64,7 @@ cd fix-my-ui
 open index.html
 ```
 
-Or use it live at **[YOUR_USERNAME].github.io/fix-my-ui**
+Or use it live at **roynick365.github.io/fix-my-ui**
 
 ---
 
