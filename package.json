@@ -20,11 +20,11 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/[YOUR_USERNAME]/fix-my-ui"
+    "url": "https://github.com/roynick365/fix-my-ui/"
   },
-  "homepage": "https://[YOUR_USERNAME].github.io/fix-my-ui",
+  "homepage": "https://roynick365.github.io/fix-my-ui",
   "bugs": {
-    "url": "https://github.com/[YOUR_USERNAME]/fix-my-ui/issues"
+    "url": "https://github.com/roynick365/fix-my-ui/issues"
   },
   "author": "[YOUR_NAME]",
   "license": "MIT"
