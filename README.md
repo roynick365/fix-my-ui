@@ -59,7 +59,7 @@ Your API key is held in browser memory only. It is never stored, never logged, n
 No install required. Open the file and use it.
 
 ```bash
-git clone https://github.com/[YOUR_USERNAME]/fix-my-ui
+git clone https://github.com/roynick365/fix-my-ui/
 cd fix-my-ui
 open index.html
 ```
