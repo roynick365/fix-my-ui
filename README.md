@@ -34,10 +34,10 @@ Paste any HTML component. Choose your AI provider. Get back:
 
 | Provider | Free tier | Get key |
 |---|---|---|
-| Claude | Yes | console.anthropic.com |
-| OpenAI | Yes | platform.openai.com |
+| Claude | Yes | [console.anthropic.com](https://platform.claude.com/) |
+| OpenAI | Yes | [platform.openai.com](https://platform.openai.com/) |
 | Grok | Yes (generous) | [x.ai](https://x.ai/api) |
-| Gemini | Yes (generous) | aistudio.google.com |
+| Gemini | Yes (generous) | [aistudio.google.com](https://aistudio.google.com/) |
 
 Your API key is held in browser memory only. It is never stored, never logged, never sent anywhere except directly to the provider you choose.
 
