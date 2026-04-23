@@ -47,6 +47,8 @@ Improved output:
 </div>
 ```
 
+Tested with common UI patterns such as cards, forms, and simple dashboards.
+
 ---
 
 ## Usage
@@ -99,7 +101,7 @@ The tool runs directly in the browser using your own API key. Keys are held in b
 ## Tech
 
 - HTML, CSS, vanilla JavaScript
-- No dependencies, no build step, no backend
+- No dependencies, no build step, no backend or setup required
 - Calls provider APIs directly from the browser
 
 ---
