@@ -1,31 +1,22 @@
 {
   "name": "fix-my-ui",
   "version": "1.0.0",
-  "description": "AI-powered UI diagnosis tool. Paste HTML, get issues, improved code and UX reasoning. Supports Claude, OpenAI, Groq and Gemini.",
-  "main": "index.html",
+  "description": "Structured UI review tool for HTML components. Analyzes UI and suggests practical improvements.",
   "keywords": [
     "ui",
-    "ux",
-    "ai",
-    "claude",
-    "openai",
-    "groq",
-    "gemini",
-    "design",
     "frontend",
-    "developer-tools",
-    "ui-review",
-    "accessibility",
-    "html"
+    "css",
+    "html",
+    "ux",
+    "component",
+    "analysis",
+    "developer-tool"
   ],
+  "author": "roynick365",
+  "license": "MIT",
+  "homepage": "https://roynick365.github.io/fix-my-ui",
   "repository": {
     "type": "git",
-    "url": "https://github.com/roynick365/fix-my-ui/"
-  },
-  "homepage": "https://roynick365.github.io/fix-my-ui",
-  "bugs": {
-    "url": "https://github.com/roynick365/fix-my-ui/issues"
-  },
-  "author": "roynick365 (https://github.com/roynick365)",
-  "license": "MIT"
+    "url": "https://github.com/roynick365/fix-my-ui"
+  }
 }
