@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8">
@@ -45,6 +46,11 @@
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
+  :root {
+    --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+    --font-sans: 'IBM Plex Sans', 'Helvetica Neue', sans-serif;
+  }
+
   body {
     background: var(--bg);
     color: var(--text);
@@ -53,8 +59,6 @@
     line-height: 1.6;
     min-height: 100vh;
     transition: background 0.2s, color 0.2s;
-    --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
-    --font-sans: 'IBM Plex Sans', 'Helvetica Neue', sans-serif;
   }
 
   /* TOP BAR */
@@ -657,6 +661,7 @@
       <div class="key-hint" id="keyHint">
         Get a free key at <a href="https://console.anthropic.com" target="_blank" id="keyLink">console.anthropic.com</a>
       </div>
+      <div id="geminiNote" style="display:none;margin-top:6px;font-family:var(--font-mono);font-size:10px;color:var(--warning);line-height:1.5;">Gemini requires https. Use the live demo at roynick365.github.io/fix-my-ui or switch to Claude, OpenAI, or Grok.</div>
     </div>
 
     <div class="examples-section">
@@ -955,8 +960,6 @@ function updateComplexity(val) {
 
   const lines = val.trim().split('\n').length;
   const tags = (val.match(/<[a-z]/gi) || []).length;
-  const nestingScore = (val.match(/^\s+</gm) || []).reduce((acc, s) => Math.max(acc, s.search(/</)), 0);
-
   let level, hint;
   if (lines <= 8 && tags <= 5) {
     level = 'simple';
@@ -1098,13 +1101,24 @@ async function callGrok(key, prompt) {
 }
 
 async function callGemini(key, prompt) {
-  const r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${key}`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }], generationConfig: { maxOutputTokens: 2000 } })
-  });
-  if (!r.ok) { const e = await r.json().catch(()=>({})); throw new Error(e?.error?.message || `HTTP ${r.status}`); }
-  return (await r.json()).candidates[0].content.parts[0].text;
+  let r;
+  try {
+    r = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${key}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ contents: [{ role: 'user', parts: [{ text: prompt }] }], generationConfig: { maxOutputTokens: 2000, temperature: 0.3 } })
+    });
+  } catch (networkErr) {
+    throw new Error('Gemini request failed. CORS may be blocking this — try a different provider, or run the tool from a local or hosted server.');
+  }
+  if (!r.ok) {
+    const e = await r.json().catch(() => ({}));
+    throw new Error(e?.error?.message || `HTTP ${r.status}`);
+  }
+  const data = await r.json();
+  const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+  if (!text) throw new Error('Gemini returned an empty response. The content may have been blocked by safety filters.');
+  return text;
 }
 
 function parseResponse(raw) {
@@ -1163,6 +1177,7 @@ function showState(state) {
   document.querySelectorAll('[data-tab-content]').forEach(c => c.classList.remove('active'));
   document.getElementById('errorNotice').classList.remove('visible');
   document.getElementById('resultActions').classList.remove('visible');
+  document.getElementById('scorebar').style.display = 'none';
   if (state === 'empty') document.getElementById('emptyState').style.display = 'flex';
   else if (state === 'loading') document.getElementById('loadingState').classList.add('visible');
   else if (state === 'results') {
@@ -1191,12 +1206,12 @@ document.getElementById('runBtn').addEventListener('click', async () => {
     const data = parseResponse(raw);
     lastResult = data; lastHtml = htmlVal;
     renderResults(data);
-    showState('results');
-    addToHistory(htmlVal, data.scores?.overall ?? null);
+    // Reset to issues tab BEFORE showState to prevent double activation
     document.querySelectorAll('.result-tab').forEach(t => t.classList.remove('active'));
     document.querySelector('[data-tab="issues"]').classList.add('active');
     currentTab = 'issues';
-    document.querySelector('[data-tab-content="issues"]').classList.add('active');
+    showState('results');
+    addToHistory(htmlVal, data.scores?.overall ?? null);
   } catch (err) {
     showState('empty');
     errEl.textContent = err.message || 'Something went wrong. Check your API key and try again.';
